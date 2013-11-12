@@ -1,0 +1,29 @@
+<h1>Hello <%= cookies[:username] %>, here are your latest episodes to watch:</h1>
+
+
+<% i = @calendar.length - 1 %>
+<% while i >= 0 %>
+	<% day = @calendar[i] %>
+
+	<i><%= day["date"] %></i>
+	<br>
+	<div class="row">
+	<% day["episodes"].each do |ep| %>
+		<% show = ep["show"]["title"].tr('^A-Za-z0-9 -', '').gsub('-', ' ') %>
+		<% episode = 'S' + ep["episode"]["season"].to_s.rjust(2, '0') + 'E' + ep["episode"]["number"].to_s.rjust(2, '0') %>
+		<div class="col-lg-3">
+			<a href="/search?q=<%= show %> <%= episode %>">
+				<div class="episodePreview">
+					<%= ep["show"]["title"] %>
+					<br>
+					<img src="<%= ep["episode"]["images"]["screen"] %>" width="250">
+				</div>
+			</a>
+		</div>
+	<% end %>
+	</div>
+	<br>
+
+	<% i -= 1 %>
+<% end %>
+

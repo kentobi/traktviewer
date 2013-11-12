@@ -1,0 +1,23 @@
+<h1>Login</h1>
+<p>
+	<% if @login_failed %>
+		<h2>Your trakt credentials did not work! :(</h2>
+	<% end %>
+
+	<% if @logged_in %>
+		You are currently signed in as <%= cookies[:username] %>
+		<a class="btn btn-primary btn-default" href="/logout">logout</a>
+	<% else %>
+		You are currently not signed in.<br>
+		Use your trakt credentials!
+
+		<%= form_tag("/login", method: "post", class: "form-signin") do %>
+		  <%= text_field_tag 'username', nil, :class => 'form-control', :placeholder => 'Username', :required => "true", :autofocus => "true" %>
+		  <%= password_field_tag 'password', nil, :class => 'form-control', :placeholder => "Password", :required => "true" %>
+		  <%= submit_tag("Sign in", class: "btn btn-lg btn-primary btn-block") %>
+		<% end %>
+
+	<% end %>
+</p>
+
+
